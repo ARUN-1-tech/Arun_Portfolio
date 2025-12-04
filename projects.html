@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projects — Arun T.</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="brand"><div class="logo">AT</div><div><div style="font-weight:700">Arun T.</div><div class="ssmall">Full-Stack & Android + AI</div></div></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+
+    <main style="padding-top:18px">
+      <section>
+        <div class="section-title">Projects</div>
+        <h3 style="font-family:Montserrat;color:var(--accent-2);margin-top:6px">Detailed case studies</h3>
+
+        <div style="margin-top:18px" id="project-kairaa" class="glass">
+          <h4>KAIRAA — Offline AI Assistant</h4>
+          <p class="muted">Wake word detection (Vosk), offline LLM integration (llama.cpp / GPT4All style), device control (volume, screenshot, apps).</p>
+          <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+            <div class="project-img">
+                <img src="assets/p1.png" alt="KAIRAA AI">
+            </div>
+
+            <div style="flex:1">
+              <strong>Tech</strong>
+              <div class="muted">Python, Vosk, llama.cpp, pyttsx3, tkinter</div>
+              <p class="muted" style="margin-top:8px">Role: Designed offline LLM workflow, integrated wake-word, command parsing and UI.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px" id="project-portal" class="glass">
+          <h4>College Portal — Django</h4>
+          <p class="muted">Multi-role portal (student, staff, HOD). Attendance, leave workflows, OTP session codes for lectures.</p>
+          <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+            <div class="project-img">
+                <img src="assets/p2.png" alt="College Portal">
+            </div>
+
+            <div style="flex:1">
+              <strong>Tech</strong>
+              <div class="muted">Django, PostgreSQL, Docker</div>
+              <p class="muted" style="margin-top:8px">Role: Backend + DB design, staff/admin flows and authentication.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px" id="project-attendance" class="glass">
+          <h4>Attendance System — Flask + MongoDB</h4>
+          <p class="muted">QR & OTP attendance, exports, staff dashboards.</p>
+          <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+            <div class="project-img">
+                <img src="assets/p3.png" alt="Attendance">
+            </div>
+
+            <div style="flex:1">
+              <strong>Tech</strong>
+              <div class="muted">Flask, MongoDB</div>
+              <p class="muted" style="margin-top:8px">Role: Fullstack — REST API + frontend + reports.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px">
+        <div><div style="font-weight:700">Arun T.</div><div class="ssmall muted">Full-Stack & Android + AI</div></div>
+        <div class="muted">© <span id="year"></span> Arun T.</div>
+        <div><a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> · <a href="contact.html" class="muted">Contact</a></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Arun T. — Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo">A</div>
+        <div>
+          <div style="font-weight:700">Arun T.</div>
+          <div class="ssmall">Full-Stack & Android + AI</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="home" class="hero">
+      <div class="hero-left">
+        <div class="glass">
+          <h2>I am </h2>
+          <h1><span class="name">Arun T</span></h1>
+          <p class="hero-sub">Full-Stack Developer • Android Apps • Offline AI Assistants<br>
+            I build practical offline AI tools (KAIRAA), web portals (Django), and Android voice assistants.</p>
+          <div class="hero-ctas">
+            <a href="contact.html" class="btn-cta">Discuss a Project</a>
+            <a href="projects.html" class="muted" style="align-self:center">View Portfolios →</a>
+          </div>
+          <div style="margin-top:14px" class="ssmall muted">Location: Erode, TamilNadu, India • Email: arundevil2007@gmail.com</div>
+        </div>
+
+        <!-- SPECIALITIES PREVIEW -->
+        <section style="margin-top:22px">
+          <div class="section-title">Speciality</div>
+          <h3 style="margin:6px 0 0;font-family:Montserrat;color:var(--accent-1)">My specialities</h3>
+          <p class="subtle">Offline AI assistants, Android voice assistants, Django college portals, attendance systems.</p>
+        </section>
+
+        <!-- SKILLS PREVIEW -->
+        <section style="margin-top:18px">
+          <div class="section-title">Skills</div>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-name">Python</div>
+              <div class="progress"><i style="width:95%"></i></div>
+              <div class="muted" style="margin-top:8px">Flask, Django</div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-name">Frontend)</div>
+              <div class="progress"><i style="width:90%"></i></div>
+              <div class="muted" style="margin-top:8px">HTML,CSS,JS</div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-name">AI & Speech</div>
+              <div class="progress"><i style="width:85%"></i></div>
+              <div class="muted" style="margin-top:8px">Vosk, llama.cpp</div>
+            </div>
+
+            
+          </div>
+        </section>
+
+      </div>
+
+      <div class="profile-wrap">
+        <div class="profile-card glass profile-rounded">
+            <img src="C:\Itachi\portfolio\assets\profile.jpg" alt="Arun T. — profile">
+        </div>
+
+        <div class="neon-ring" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <!-- Projects preview -->
+    <section style="margin-top:28px">
+      <div class="section-title">Projects</div>
+      <h3 style="margin:6px 0 10px;font-family:Montserrat;color:var(--accent-2)">Selected work</h3>
+      <div class="projects-grid">
+        <div class="project glass">
+          <img src="assets\p1.png" alt="KAIRAA">
+          <h4>KAIRAA — Offline AI Assistant</h4>
+          <p class="muted">Wake-word, offline LLM, system automation.</p>
+          <div style="margin-top:10px"><a href="projects.html#project-kairaa" class="muted">Read more →</a></div>
+        </div>
+
+        <div class="project glass">
+          <img src="assets\p2.png" alt="College Portal">
+          <h4>College Portal — Django</h4>
+          <p class="muted">Multi-role portal, attendance & OTP sessions.</p>
+          <div style="margin-top:10px"><a href="projects.html#project-portal" class="muted">Read more →</a></div>
+        </div>
+
+        <div class="project glass">
+          <img src="assets/p3.png" alt="Attendance">
+          <h4>Attendance System — Flask + MongoDB</h4>
+          <p class="muted">QR & OTP based attendance with exports.</p>
+          <div style="margin-top:10px"><a href="projects.html#project-attendance" class="muted">Read more →</a></div>
+        </div>
+      </div>
+      <div style="margin-top:12px"><a href="projects.html" class="btn-cta">View All Projects</a></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px">
+        <div>
+          <div style="font-weight:700">Arun T.</div>
+          <div class="ssmall muted" style="margin-top:6px">Full-Stack & Android + AI</div>
+        </div>
+
+        <div class="muted">© <span id="year"></span> Arun T. • All rights reserved</div>
+
+        <div><a href="https://github.com/your" class="muted">GitHub</a> · <a href="https://linkedin.com/in/your" class="muted">LinkedIn</a></div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
