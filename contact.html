@@ -5,6 +5,7 @@
   <title>Contact — Arun T.</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
 </head>
 <body>
   <div class="container nav">
@@ -44,16 +45,19 @@
             <p style="margin-top:12px"><strong>Quick links</strong><br><br><a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> · <a href="https://www.linkedin.com/in/arun-t-84b61b328/" class="muted">LinkedIn</a></p>
           </div>
 
-          <form id="contactForm" action="https://formspree.io/f/abcdxyzq" method="POST">
-            <input class="input" name="name" id="name" placeholder="Your name" required>
-            <input class="input" name="email" id="email" placeholder="Your email" type="email" required>
-            <textarea name="message" id="message" placeholder="Tell me about your project" required></textarea>
+          <form id="contactForm">
+            <input class="input" name="from_name" placeholder="Your name" required>
+            <input class="input" name="reply_to" placeholder="Your email" type="email" required>
+            <textarea name="message" placeholder="Tell me about your project" required></textarea>
           
-            <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <div style="display:flex;gap:12px;margin-top:8px;">
               <button class="btn-cta" type="submit">Send Message</button>
-              <button type="reset" class="btn-cta ghost">Clear</button>
+              <button class="btn-cta ghost" type="reset">Clear</button>
             </div>
           </form>
+          
+          <div id="statusMessage" style="margin-top:12px;font-size:15px;"></div>
+
 
 
         </div>
