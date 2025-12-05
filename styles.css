@@ -341,3 +341,93 @@ footer{margin-top:36px;padding:32px;border-top:1px solid rgba(255,255,255,0.02);
   transform: scaleX(1);
 }
 
+/* ============================
+   Mobile nav toggle styles
+   ============================ */
+
+/* Hide toggle on desktop, show on small screens */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  width:44px;
+  height:44px;
+  border-radius:8px;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  position:relative;
+}
+.nav-toggle:focus { outline: 2px solid rgba(0,209,255,0.16); }
+
+/* simple hamburger lines */
+.hamburger {
+  display:block;
+  width:20px;
+  height:2px;
+  background:var(--muted);
+  position:relative;
+  transition: transform 220ms ease;
+}
+.hamburger::before,
+.hamburger::after {
+  content:"";
+  position:absolute;
+  left:0;
+  width:20px;
+  height:2px;
+  background:var(--muted);
+  transition: transform 220ms ease, top 220ms ease, opacity 220ms ease;
+}
+.hamburger::before { top: -6px; }
+.hamburger::after  { top: 6px; }
+
+/* Mobile layout */
+@media (max-width: 780px) {
+  .nav-links { /* hide by default on mobile */
+    display: none;
+    position: absolute;
+    top: 64px; /* below header */
+    right: 18px;
+    left: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 12px;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1200;
+    box-shadow: 0 12px 32px rgba(2,6,23,0.6);
+  }
+
+  .nav-links a {
+    display:block;
+    padding:10px 12px;
+    border-radius:8px;
+    color:var(--muted);
+  }
+
+  .nav { align-items:center; }
+
+  /* show hamburger */
+  .nav-toggle { display:flex; }
+
+  /* when menu open */
+  .nav-links.open { display:flex; animation: fadeInDown 220ms ease; }
+
+  /* animate hamburger -> X when open */
+  .nav-toggle.open .hamburger { transform: rotate(45deg); background: transparent; }
+  .nav-toggle.open .hamburger::before { transform: rotate(90deg); top: 0; }
+  .nav-toggle.open .hamburger::after  { opacity: 0; top: 0; }
+
+  @keyframes fadeInDown {
+    from { opacity:0; transform: translateY(-6px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+}
+
+/* optional: make sure nav-links are visible on larger screens as before */
+@media (min-width: 781px) {
+  .nav-links { display:flex !important; position:static; background:transparent; padding:0; gap:22px; box-shadow:none; }
+  .nav-toggle { display:none !important; }
+}
