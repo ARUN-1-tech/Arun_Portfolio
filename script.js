@@ -32,3 +32,42 @@ document.addEventListener('DOMContentLoaded', ()=> {
   const y = document.getElementById('year');
   if(y) y.textContent = new Date().getFullYear();
 });
+
+// MOBILE NAV TOGGLE (append at bottom of script.js)
+(function() {
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('primary-navigation');
+
+  if(!toggle || !nav) return;
+
+  toggle.addEventListener('click', function() {
+    const isOpen = nav.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    // lock body scroll when open (mobile)
+    if(isOpen) document.documentElement.style.overflow = 'hidden';
+    else document.documentElement.style.overflow = '';
+  });
+
+  // close when clicking a link (mobile)
+  nav.addEventListener('click', function(e){
+    const a = e.target.closest('a');
+    if(!a) return;
+    if(window.innerWidth <= 780) {
+      nav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+    }
+  });
+
+  // close on resize > mobile
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 780 && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+      document.documentElement.style.overflow = '';
+    }
+  });
+})();
