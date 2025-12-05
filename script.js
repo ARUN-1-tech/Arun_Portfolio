@@ -118,31 +118,53 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   }
 
+// script.js — EmailJS form handler (using your service/template ids)
+(function () {
+  const SERVICE_ID = "service_fcu4tck";
+  const TEMPLATE_ID = "template_18qdyfj";
+
   document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const status = document.getElementById("statusMessage");
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("statusMessage");
+    if (!form) return;
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    // Ensure emailjs exists before using:
+    function send(formEl) {
+      if (!window.emailjs || !window.emailjs.sendForm) {
+        status.textContent = "Message service unavailable. Try again later.";
+        status.style.color = "#ffcc66";
+        console.error("emailjs not available on window");
+        return;
+      }
 
-    status.textContent = "Sending message...";
-    status.style.color = "#9bbcff";
+      status.textContent = "Sending message...";
+      status.style.color = "#9bbcff";
 
-    emailjs.sendForm("service_fcu4tck", "template_18qdyfj", this)
-      .then(() => {
-        status.textContent = "Message sent successfully!";
-        status.style.color = "#4effa1";
-        form.reset();
-      })
-      .catch((err) => {
-        console.error(err);
-        status.textContent = "Failed to send message. Try again!";
-        status.style.color = "#ff4e4e";
-      });
-  });
-});
-
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
+        .then(() => {
+          status.textContent = "Message sent successfully! I will reply soon.";
+          status.style.color = "#4effa1";
+          formEl.reset();
+        })
+        .catch((err) => {
+          console.error("EmailJS error", err);
+          status.textContent = "Failed to send message. Please try again later.";
+          status.style.color = "#ff4e4e";
         });
+    }
+
+    // submit handler
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      send(form);
     });
   });
+
+  // small helper: set current year in footer
+  try {
+    document.addEventListener("DOMContentLoaded", () => {
+      const y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+    });
+  } catch(e) { /* ignore */ }
 })();
