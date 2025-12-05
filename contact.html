@@ -5,7 +5,23 @@
   <title>Contact — Arun T.</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <!-- EmailJS SDK + init (replace PUBLIC_KEY if needed) -->
   <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+  <script>
+    // initialize immediately so emailjs is available to later scripts
+    (function(){
+      if(window.emailjs) {
+        emailjs.init("EGj3Dnu_YzM2n2epL"); // your PUBLIC_KEY
+        console.log("EmailJS loaded and init OK");
+      } else {
+        console.warn("EmailJS SDK not available");
+      }
+    })();
+  </script>
+  
+  <!-- Your main script should come AFTER the SDK and init -->
+  <script src="script.js" defer></script>
+
 </head>
 <body>
   <div class="container nav">
