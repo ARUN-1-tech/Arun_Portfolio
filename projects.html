@@ -7,16 +7,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <nav class="nav">
-      <div class="brand"><div class="logo">AT</div><div><div style="font-weight:700">Arun T.</div><div class="ssmall">Full-Stack & Android + AI</div></div></div>
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="projects.html" class="active">Projects</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </nav>
+  <div class="container nav">
+  <div class="brand">
+    <div class="logo">A</div>
+    <div>
+      <div class="brand-name">Arun T.</div>
+      <div class="ssmall muted">Full-Stack & Android + AI</div>
+    </div>
+  </div>
+
+  <!-- NAV BUTTON (mobile toggle) -->
+  <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="hamburger"></span>
+  </button>
+
+  <!-- NAV LINKS -->
+  <nav id="primary-navigation" class="nav-links" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</div>
+
 
     <main style="padding-top:18px">
       <section>
