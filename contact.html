@@ -84,7 +84,62 @@
     </div>
   </footer>
 
-  <!-- IMPORTANT: only one script include for your JS -->
-  <script src="script.js" defer></script>
+  <<!-- Inline EmailJS handler — paste entire block and save (immediate fix) -->
+<script>
+(function () {
+  "use strict";
+
+  const SERVICE_ID = "service_fcu4tck";
+  const TEMPLATE_ID = "template_18qdyfj";
+
+  // set status helper
+  function setStatus(statusEl, text, color) {
+    if (!statusEl) return;
+    statusEl.textContent = text;
+    if (color) statusEl.style.color = color;
+  }
+
+  // send via emailjs; window.emailjs comes from the esm loader in head
+  function sendEmail(formEl, statusEl) {
+    if (!window.emailjs || typeof window.emailjs.sendForm !== "function") {
+      setStatus(statusEl, "Message service unavailable. Try again later.", "#ffcc66");
+      console.error("emailjs is not available on window");
+      return;
+    }
+    setStatus(statusEl, "Sending message...", "#9bbcff");
+    window.emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
+      .then(function () {
+        setStatus(statusEl, "Message sent successfully! I will reply soon.", "#4effa1");
+        try { formEl.reset(); } catch (_) {}
+      })
+      .catch(function (err) {
+        console.error("EmailJS send error:", err);
+        setStatus(statusEl, "Failed to send message. Please try again later.", "#ff4e4e");
+      });
+  }
+
+  // DOM ready
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("contactForm");
+    var status = document.getElementById("statusMessage");
+
+    if (!form) {
+      console.warn("contactForm element not found.");
+      return;
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      sendEmail(this, status);
+    });
+
+    try {
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    } catch (e) { /* ignore */ }
+  });
+})();
+</script>
+
 </body>
 </html>
