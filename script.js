@@ -73,26 +73,29 @@ document.addEventListener('DOMContentLoaded', ()=> {
 })();
 
 
-// Formspree AJAX submit (add to script.js)
-document.addEventListener('DOMContentLoaded', ()=> {
-  const form = document.getElementById('contactForm');
-  if(!form) return;
-  form.addEventListener('submit', async function(e){
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("statusMessage");
+
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
-    const url = form.action; // formspree endpoint
-    const data = new FormData(form);
-    try {
-      const res = await fetch(url, {method:'POST', body: data, headers: {'Accept':'application/json'} });
-      if(res.ok){
-        alert('Thanks! Your message was sent.');
+
+    status.innerHTML = "Sending message...";
+    status.style.color = "#9bbcff";
+
+    emailjs.sendForm(
+      "service_fcu4tck",
+      "template_18qdyfj",
+      this,
+      "EGj3Dnu_YzM2n2epL"
+    ).then(() => {
+        status.innerHTML = "Message sent successfully! I will reply soon.";
+        status.style.color = "#4effa1";
         form.reset();
-      } else {
-        const json = await res.json();
-        alert(json?.error || 'Failed to send — try again later.');
-      }
-    } catch(err){
-      alert('Network error. Please try again later.');
-      console.error(err);
-    }
+      }, (err) => {
+        status.innerHTML = "Failed to send message. Please try again later.";
+        status.style.color = "#ff4e4e";
+        console.error("EmailJS Error:", err);
+      });
   });
 });
