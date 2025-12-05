@@ -118,69 +118,62 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   }
 
-// script.js — robust EmailJS form handler (final)
-// Uses window.emailjs provided by the <script type="module"> in contact.html
-
+// script.js — final safe EmailJS handler (copy entire file, replace existing)
 (function () {
+  "use strict";
+
   const SERVICE_ID = "service_fcu4tck";
   const TEMPLATE_ID = "template_18qdyfj";
 
-  // wait for DOM ready
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contactForm");
-    const status = document.getElementById("statusMessage");
+  // helper: set status area text & color
+  function setStatus(statusEl, text, color) {
+    if (!statusEl) return;
+    statusEl.textContent = text;
+    if (color) statusEl.style.color = color;
+  }
 
-    if (!form) {
-      console.warn("contactForm not found on the page.");
+  // send using emailjs, guarded
+  function sendEmail(formEl, statusEl) {
+    if (!window.emailjs || typeof window.emailjs.sendForm !== "function") {
+      setStatus(statusEl, "Message service unavailable. Try again later.", "#ffcc66");
+      console.error("emailjs is not available on window");
       return;
     }
 
-    // helper to update status UI
-    function setStatus(text, color) {
-      if (!status) return;
-      status.textContent = text;
-      if (color) status.style.color = color;
+    setStatus(statusEl, "Sending message...", "#9bbcff");
+
+    window.emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
+      .then(function () {
+        setStatus(statusEl, "Message sent successfully! I will reply soon.", "#4effa1");
+        try { formEl.reset(); } catch (e) { /* ignore reset errors */ }
+      })
+      .catch(function (err) {
+        console.error("EmailJS send error:", err);
+        setStatus(statusEl, "Failed to send message. Please try again later.", "#ff4e4e");
+      });
+  }
+
+  // DOM ready
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("contactForm");
+    var status = document.getElementById("statusMessage");
+
+    if (!form) {
+      console.warn("contactForm element not found.");
+      return;
     }
 
-    // main send function — verifies emailjs exists
-    function doSend(formEl) {
-      if (!window.emailjs || typeof window.emailjs.sendForm !== "function") {
-        setStatus("Message service unavailable. Try again later.", "#ffcc66");
-        console.error("emailjs is not available on window");
-        return;
-      }
-
-      setStatus("Sending message...", "#9bbcff");
-
-      // sendForm returns a Promise
-      window.emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
-        .then(function () {
-          setStatus("Message sent successfully! I will reply soon.", "#4effa1");
-          try { formEl.reset(); } catch (e) { /* ignore */ }
-        })
-        .catch(function (err) {
-          console.error("EmailJS error:", err);
-          setStatus("Failed to send message. Please try again later.", "#ff4e4e");
-        });
-    }
-
-    // attach submit handler
+    // attach one submit handler
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      doSend(this);
+      sendEmail(this, status);
     });
 
-    // optional: attach Enter key send for textarea safety (doesn't break shift+enter)
-    // (keeps behavior standard; no need to modify unless you want it)
+    // set year (optional)
+    try {
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    } catch (e) { /* ignore */ }
   });
 
-  // small helper: set current year in footer
-  document.addEventListener("DOMContentLoaded", () => {
-    try {
-      const y = document.getElementById("year");
-      if (y) y.textContent = new Date().getFullYear();
-    } catch (e) {
-      // ignore
-    }
-  });
-})();
+})(); // end IIFE
