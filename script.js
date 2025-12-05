@@ -73,52 +73,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 })();
 
 
-// script.js — robust EmailJS loader + form handler
-(function () {
-  const PUBLIC_KEY = "EGj3Dnu_YzM2n2epL";
-  const SERVICE_ID = "service_fcu4tck";
-  const TEMPLATE_ID = "template_18qdyfj";
-
-  // load EmailJS SDK dynamically if it's not present
-  function loadEmailJSSDK() {
-    return new Promise((resolve, reject) => {
-      if (window.emailjs) {
-        return resolve(window.emailjs);
-      }
-      const s = document.createElement("script");
-      s.src = "https://cdn.emailjs.com/sdk/3.2.0/email.min.js";
-      s.async = true;
-      s.onload = () => {
-        if (window.emailjs) resolve(window.emailjs);
-        else reject(new Error("EmailJS loaded but window.emailjs missing"));
-      };
-      s.onerror = () => reject(new Error("Failed to load EmailJS SDK"));
-      document.head.appendChild(s);
-    });
-  }
-
-  async function ensureEmailJS() {
-    try {
-      await loadEmailJSSDK();
-      // init if not already
-      if (!window.emailjs || !window.emailjs.init) {
-        throw new Error("EmailJS object missing after load");
-      }
-      try {
-        emailjs.init(PUBLIC_KEY);
-        console.log("EmailJS initialized with public key.");
-      } catch (e) {
-        // sometimes init may already have been called in <head>, ignore
-        console.warn("emailjs.init() warning:", e);
-      }
-      return true;
-    } catch (err) {
-      console.error("EmailJS availability error:", err);
-      return false;
-    }
-  }
-
-// script.js — final safe EmailJS handler (replace existing file)
+// script.js — final safe EmailJS handler (replace file content with this)
 (function () {
   "use strict";
 
