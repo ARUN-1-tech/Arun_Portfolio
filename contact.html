@@ -8,7 +8,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 
   <!-- EmailJS SDK (we load it normally, but script.js has a fallback loader too) -->
-  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+  <script type="module">
+    import emailjs from "https://esm.run/@emailjs/browser";
+  
+    emailjs.init("EGj3Dnu_YzM2n2epL");
+    window.emailjs = emailjs; // make it globally available for script.js
+  </script>
+
   <script>
     // initialize immediately so emailjs is available to later scripts if loaded quickly
     (function(){
