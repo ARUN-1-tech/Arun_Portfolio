@@ -118,21 +118,19 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   }
 
-// script.js — final safe EmailJS handler (copy entire file, replace existing)
+// script.js — final safe EmailJS handler (replace existing file)
 (function () {
   "use strict";
 
   const SERVICE_ID = "service_fcu4tck";
   const TEMPLATE_ID = "template_18qdyfj";
 
-  // helper: set status area text & color
   function setStatus(statusEl, text, color) {
     if (!statusEl) return;
     statusEl.textContent = text;
     if (color) statusEl.style.color = color;
   }
 
-  // send using emailjs, guarded
   function sendEmail(formEl, statusEl) {
     if (!window.emailjs || typeof window.emailjs.sendForm !== "function") {
       setStatus(statusEl, "Message service unavailable. Try again later.", "#ffcc66");
@@ -145,7 +143,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     window.emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
       .then(function () {
         setStatus(statusEl, "Message sent successfully! I will reply soon.", "#4effa1");
-        try { formEl.reset(); } catch (e) { /* ignore reset errors */ }
+        try { formEl.reset(); } catch (e) { /* ignore */ }
       })
       .catch(function (err) {
         console.error("EmailJS send error:", err);
@@ -153,7 +151,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
       });
   }
 
-  // DOM ready
   document.addEventListener("DOMContentLoaded", function () {
     var form = document.getElementById("contactForm");
     var status = document.getElementById("statusMessage");
@@ -163,17 +160,15 @@ document.addEventListener('DOMContentLoaded', ()=> {
       return;
     }
 
-    // attach one submit handler
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       sendEmail(this, status);
     });
 
-    // set year (optional)
+    // set footer year
     try {
       var yearEl = document.getElementById("year");
       if (yearEl) yearEl.textContent = new Date().getFullYear();
     } catch (e) { /* ignore */ }
   });
-
-})(); // end IIFE
+})();
