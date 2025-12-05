@@ -118,42 +118,30 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   }
 
-  // attach form handler after EmailJS ready
-  document.addEventListener("DOMContentLoaded", async () => {
-    const status = document.getElementById("statusMessage");
-    const form = document.getElementById("contactForm");
-    if (!form) {
-      console.warn("Contact form not found on the page.");
-      return;
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("statusMessage");
 
-    const ok = await ensureEmailJS();
-    if (!ok) {
-      if (status) status.textContent = "Message service unavailable. Try again later.";
-      return;
-    }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (status) {
-        status.textContent = "Sending message...";
-        status.style.color = "#9bbcff";
-      }
+    status.textContent = "Sending message...";
+    status.style.color = "#9bbcff";
 
-      // sendForm uses the form element as data source
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this)
-        .then(() => {
-          if (status) {
-            status.textContent = "Message sent successfully! I will reply soon.";
-            status.style.color = "#4effa1";
-          }
-          form.reset();
-        }, (err) => {
-          console.error("EmailJS error:", err);
-          if (status) {
-            status.textContent = "Failed to send message. Please try again later.";
-            status.style.color = "#ff4e4e";
-          }
+    emailjs.sendForm("service_fcu4tck", "template_18qdyfj", this)
+      .then(() => {
+        status.textContent = "Message sent successfully!";
+        status.style.color = "#4effa1";
+        form.reset();
+      })
+      .catch((err) => {
+        console.error(err);
+        status.textContent = "Failed to send message. Try again!";
+        status.style.color = "#ff4e4e";
+      });
+  });
+});
+
         });
     });
   });
