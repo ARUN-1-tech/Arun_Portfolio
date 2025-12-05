@@ -71,3 +71,28 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   });
 })();
+
+
+// Formspree AJAX submit (add to script.js)
+document.addEventListener('DOMContentLoaded', ()=> {
+  const form = document.getElementById('contactForm');
+  if(!form) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const url = form.action; // formspree endpoint
+    const data = new FormData(form);
+    try {
+      const res = await fetch(url, {method:'POST', body: data, headers: {'Accept':'application/json'} });
+      if(res.ok){
+        alert('Thanks! Your message was sent.');
+        form.reset();
+      } else {
+        const json = await res.json();
+        alert(json?.error || 'Failed to send — try again later.');
+      }
+    } catch(err){
+      alert('Network error. Please try again later.');
+      console.error(err);
+    }
+  });
+});
