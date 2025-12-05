@@ -1,28 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contact — Arun T.</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
-  <!-- EmailJS SDK + init (replace PUBLIC_KEY if needed) -->
+
+  <!-- EmailJS SDK (we load it normally, but script.js has a fallback loader too) -->
   <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
   <script>
-    // initialize immediately so emailjs is available to later scripts
+    // initialize immediately so emailjs is available to later scripts if loaded quickly
     (function(){
       if(window.emailjs) {
-        emailjs.init("EGj3Dnu_YzM2n2epL"); // your PUBLIC_KEY
-        console.log("EmailJS loaded and init OK");
+        try {
+          emailjs.init("EGj3Dnu_YzM2n2epL"); // your PUBLIC_KEY
+          console.log("EmailJS loaded and init OK (head init).");
+        } catch(e) {
+          console.warn("EmailJS init in head failed:", e);
+        }
       } else {
-        console.warn("EmailJS SDK not available");
+        console.warn("EmailJS SDK not available in head; script.js will load it dynamically.");
       }
     })();
   </script>
-  
-  <!-- Your main script should come AFTER the SDK and init -->
-  <script src="script.js" defer></script>
-
 </head>
+
 <body>
   <div class="container nav">
   <div class="brand">
