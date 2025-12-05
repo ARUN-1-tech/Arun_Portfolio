@@ -44,15 +44,21 @@
             <p style="margin-top:12px"><strong>Quick links</strong><br><br><a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> · <a href="https://www.linkedin.com/in/arun-t-84b61b328/" class="muted">LinkedIn</a></p>
           </div>
 
-          <form onsubmit="sendMessage(event)">
-            <input class="input" id="name" placeholder="Your name" required>
-            <input class="input" id="email" placeholder="Your email" type="email" required style="margin-top:8px">
-            <textarea id="message" placeholder="Tell me about your project" required style="margin-top:8px"></textarea>
+          <!-- use this form markup (replace FORMSPREE_ENDPOINT) -->
+          <form id="contactForm" action="https://formspree.io/f/FORMSPREE_ENDPOINT" method="POST">
+            <input class="input" name="name" id="name" placeholder="Your name" required>
+            <input class="input" name="email" id="email" placeholder="Your email" type="email" required>
+            <textarea name="message" id="message" placeholder="Tell me about your project" required></textarea>
+          
+            <!-- optional: redirect after submit -->
+            <input type="hidden" name="_redirect" value="https://arun-1-tech.github.io/Arun_Portfolio/contact.html?success=1">
+          
             <div style="display:flex;gap:8px;margin-top:8px">
               <button class="btn-cta" type="submit">Send Message</button>
-              <button type="reset" class="btn-cta" ;border:1px solid rgba(255,255,255,0.06)">Clear</button>
+              <button type="reset" class="btn-cta ghost">Clear</button>
             </div>
           </form>
+
         </div>
       </section>
     </main>
