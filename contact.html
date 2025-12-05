@@ -4,102 +4,98 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contact — Arun T.</title>
+
+  <!-- your stylesheet(s) -->
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- EmailJS SDK (we load it normally, but script.js has a fallback loader too) -->
+  <!--
+    Robust EmailJS loader (ES module via esm.run).
+    This loads the modern @emailjs/browser package and makes `emailjs`
+    available globally on window so script.js can use it.
+  -->
   <script type="module">
     import emailjs from "https://esm.run/@emailjs/browser";
-  
-    emailjs.init("EGj3Dnu_YzM2n2epL");
-    window.emailjs = emailjs; // make it globally available for script.js
+
+    try {
+      // initialize with your public key
+      emailjs.init("EGj3Dnu_YzM2n2epL");
+      // expose a global reference so old code expecting window.emailjs still works
+      window.emailjs = emailjs;
+      console.log("EmailJS (esm) loaded & initialized");
+    } catch (err) {
+      console.error("EmailJS (esm) failed to init:", err);
+    }
   </script>
 
-  <script>
-    // initialize immediately so emailjs is available to later scripts if loaded quickly
-    (function(){
-      if(window.emailjs) {
-        try {
-          emailjs.init("EGj3Dnu_YzM2n2epL"); // your PUBLIC_KEY
-          console.log("EmailJS loaded and init OK (head init).");
-        } catch(e) {
-          console.warn("EmailJS init in head failed:", e);
-        }
-      } else {
-        console.warn("EmailJS SDK not available in head; script.js will load it dynamically.");
-      }
-    })();
-  </script>
 </head>
-
 <body>
+  <!-- NAV: keep your nav markup -->
   <div class="container nav">
-  <div class="brand">
-    <div class="logo">A</div>
-    <div>
-      <div class="brand-name">Arun T.</div>
-      <div class="ssmall muted">Full-Stack & Android + AI</div>
+    <div class="brand">
+      <div class="logo">A</div>
+      <div>
+        <div class="brand-name">Arun T.</div>
+        <div class="ssmall muted">Full-Stack & Android + AI</div>
+      </div>
     </div>
+
+    <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav id="primary-navigation" class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </div>
 
-  <!-- NAV BUTTON (mobile toggle) -->
-  <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="hamburger"></span>
-  </button>
+  <main style="padding-top:18px">
+    <section id="contact-section">
+      <div class="section-title">Contact</div>
+      <h3 style="font-family:Montserrat;color:var(--accent-1);margin-top:6px">Let's build something</h3>
+      <p class="subtle">Email me at <a href="mailto:arundevil2007@gmail.com" class="muted">arundevil2007@gmail.com</a> or use the form below.</p>
 
-  <!-- NAV LINKS -->
-  <nav id="primary-navigation" class="nav-links" aria-label="Main navigation">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</div>
+      <div class="contact-card" style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+        <div>
+          <h4>Contact details</h4>
+          <p class="muted">Phone: +91 8778487067<br>Location: Erode, TamilNadu, India</p>
+          <p style="margin-top:12px"><strong>Quick links</strong><br><br>
+            <a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> ·
+            <a href="https://www.linkedin.com/in/arun-t-84b61b328/" class="muted">LinkedIn</a>
+          </p>
+        </div>
 
-
-    <main style="padding-top:18px">
-      <section id="contact-section">
-        <div class="section-title">Contact</div>
-        <h3 style="font-family:Montserrat;color:var(--accent-1);margin-top:6px">Let's build something</h3>
-        <p class="subtle">Email me at <a href="mailto:arundevil2007@gmail.com" class="muted">arundevil2007@gmail.com</a> or use the form below.</p>
-
-        <div class="contact-card" style="margin-top:16px">
-          <div>
-            <h4>Contact details</h4>
-            <p class="muted">Phone: +91 8778487067<br>Location: Erode, TamilNadu, India</p>
-            <p style="margin-top:12px"><strong>Quick links</strong><br><br><a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> · <a href="https://www.linkedin.com/in/arun-t-84b61b328/" class="muted">LinkedIn</a></p>
-          </div>
-
+        <!-- CONTACT FORM (EmailJS-ready) -->
+        <div>
           <form id="contactForm">
-            <input class="input" name="from_name" placeholder="Your name" required>
-            <input class="input" name="reply_to" placeholder="Your email" type="email" required>
-            <textarea name="message" placeholder="Tell me about your project" required></textarea>
-          
+            <input class="input" name="from_name" id="from_name" placeholder="Your name" required>
+            <input class="input" name="reply_to" id="reply_to" placeholder="Your email" type="email" required>
+            <textarea name="message" id="message" placeholder="Tell me about your project" required></textarea>
+
             <div style="display:flex;gap:12px;margin-top:8px;">
               <button class="btn-cta" type="submit">Send Message</button>
               <button class="btn-cta ghost" type="reset">Clear</button>
             </div>
           </form>
-          
-          <div id="statusMessage" style="margin-top:12px;font-size:15px;"></div>
 
-
-
+          <div id="statusMessage" style="margin-top:12px;font-size:15px;color:var(--muted)"></div>
         </div>
-      </section>
-    </main>
-
-    <footer>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px">
-        <div><div style="font-weight:700">Arun T.</div><div class="ssmall muted">Full-Stack & Android + AI</div></div>
-        <div class="muted">© <span id="year"></span> Arun T.</div>
-        <div><a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> · <a href="https://www.linkedin.com/in/arun-t-84b61b328/" class="muted">LinkedIn</a></div>
       </div>
-    </footer>
+    </section>
+  </main>
 
-  </div>
+  <footer>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px;padding:28px 0">
+      <div><div style="font-weight:700">Arun T.</div><div class="ssmall muted">Full-Stack & Android + AI</div></div>
+      <div class="muted">© <span id="year"></span> Arun T.</div>
+      <div><a href="https://github.com/ARUN-1-tech" class="muted">GitHub</a> · <a href="https://www.linkedin.com/in/arun-t-84b61b328/" class="muted">LinkedIn</a></div>
+    </div>
+  </footer>
 
-  <!-- single main script, placed at end so DOM exists -->
-<script src="script.js" defer></script>
+  <!-- SINGLE main script include (deferred) -->
+  <script src="script.js" defer></script>
 </body>
 </html>
