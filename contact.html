@@ -5,32 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contact — Arun T.</title>
 
-  <!-- your stylesheet(s) -->
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
 
-  <!--
-    Robust EmailJS loader (ES module via esm.run).
-    This loads the modern @emailjs/browser package and makes `emailjs`
-    available globally on window so script.js can use it.
-  -->
+  <!-- esm.run loader for @emailjs/browser (keeps EmailJS working on GitHub Pages) -->
   <script type="module">
     import emailjs from "https://esm.run/@emailjs/browser";
-
     try {
-      // initialize with your public key
       emailjs.init("EGj3Dnu_YzM2n2epL");
-      // expose a global reference so old code expecting window.emailjs still works
-      window.emailjs = emailjs;
+      window.emailjs = emailjs; // expose globally for script.js
       console.log("EmailJS (esm) loaded & initialized");
     } catch (err) {
       console.error("EmailJS (esm) failed to init:", err);
     }
   </script>
-
 </head>
 <body>
-  <!-- NAV: keep your nav markup -->
   <div class="container nav">
     <div class="brand">
       <div class="logo">A</div>
@@ -68,7 +58,6 @@
           </p>
         </div>
 
-        <!-- CONTACT FORM (EmailJS-ready) -->
         <div>
           <form id="contactForm">
             <input class="input" name="from_name" id="from_name" placeholder="Your name" required>
@@ -95,7 +84,7 @@
     </div>
   </footer>
 
-  <!-- SINGLE main script include (deferred) -->
+  <!-- IMPORTANT: only one script include for your JS -->
   <script src="script.js" defer></script>
 </body>
 </html>
