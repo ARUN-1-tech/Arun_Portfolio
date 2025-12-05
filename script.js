@@ -118,53 +118,69 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
   }
 
-// script.js — EmailJS form handler (using your service/template ids)
+// script.js — robust EmailJS form handler (final)
+// Uses window.emailjs provided by the <script type="module"> in contact.html
+
 (function () {
   const SERVICE_ID = "service_fcu4tck";
   const TEMPLATE_ID = "template_18qdyfj";
 
+  // wait for DOM ready
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("contactForm");
     const status = document.getElementById("statusMessage");
-    if (!form) return;
 
-    // Ensure emailjs exists before using:
-    function send(formEl) {
-      if (!window.emailjs || !window.emailjs.sendForm) {
-        status.textContent = "Message service unavailable. Try again later.";
-        status.style.color = "#ffcc66";
-        console.error("emailjs not available on window");
+    if (!form) {
+      console.warn("contactForm not found on the page.");
+      return;
+    }
+
+    // helper to update status UI
+    function setStatus(text, color) {
+      if (!status) return;
+      status.textContent = text;
+      if (color) status.style.color = color;
+    }
+
+    // main send function — verifies emailjs exists
+    function doSend(formEl) {
+      if (!window.emailjs || typeof window.emailjs.sendForm !== "function") {
+        setStatus("Message service unavailable. Try again later.", "#ffcc66");
+        console.error("emailjs is not available on window");
         return;
       }
 
-      status.textContent = "Sending message...";
-      status.style.color = "#9bbcff";
+      setStatus("Sending message...", "#9bbcff");
 
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
-        .then(() => {
-          status.textContent = "Message sent successfully! I will reply soon.";
-          status.style.color = "#4effa1";
-          formEl.reset();
+      // sendForm returns a Promise
+      window.emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formEl)
+        .then(function () {
+          setStatus("Message sent successfully! I will reply soon.", "#4effa1");
+          try { formEl.reset(); } catch (e) { /* ignore */ }
         })
-        .catch((err) => {
-          console.error("EmailJS error", err);
-          status.textContent = "Failed to send message. Please try again later.";
-          status.style.color = "#ff4e4e";
+        .catch(function (err) {
+          console.error("EmailJS error:", err);
+          setStatus("Failed to send message. Please try again later.", "#ff4e4e");
         });
     }
 
-    // submit handler
-    form.addEventListener("submit", (e) => {
+    // attach submit handler
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      send(form);
+      doSend(this);
     });
+
+    // optional: attach Enter key send for textarea safety (doesn't break shift+enter)
+    // (keeps behavior standard; no need to modify unless you want it)
   });
 
   // small helper: set current year in footer
-  try {
-    document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    try {
       const y = document.getElementById("year");
       if (y) y.textContent = new Date().getFullYear();
-    });
-  } catch(e) { /* ignore */ }
+    } catch (e) {
+      // ignore
+    }
+  });
 })();
